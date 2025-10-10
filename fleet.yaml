@@ -1,6 +1,7 @@
 namespace: fleet-mc-helm-external-example
 {{- if not (lookup "v1" "Secret" .Release.Namespace (include
-        "BusDataRecorderDocker.fullname" . | printf "%s-rabbitmq")) }}
+  "BusDataRecorderDocker.fullname" . | printf "%s-rabbitmq")) }}
+{{- end }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -11,5 +12,5 @@ type: Opaque
 data:
    RMQ_DEFAULT_USER: hola
    RMQ_DEFAULT_PASS: hola
-{{- end }}
+
 
