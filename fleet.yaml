@@ -9,11 +9,11 @@ namespace: fleet-mc-helm-external-example
         metadata:
           name: {{ include "BusDataRecorderDocker.fullname" . }}-rabbitmq
           labels:
-            app.kubernetes.io/name: {{ include "BusDataRecorderDocker.fullname" . }}
+            app.kubernetes.io/name: hola
         type: Opaque
 
         data:
-          RMQ_DEFAULT_USER: {{ .Values.env.rmqDefaultUser | b64enc | quote }}
-          RMQ_DEFAULT_PASS: {{ .Values.env.rmqDefaultPass | b64enc | quote }}
+          RMQ_DEFAULT_USER: hola
+          RMQ_DEFAULT_PASS: hola
         {{- end }}
 
