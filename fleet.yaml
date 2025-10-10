@@ -1,19 +1,15 @@
 namespace: fleet-mc-helm-external-example
-  {{- if not (lookup "v1" "Secret" .Release.Namespace (include
+{{- if not (lookup "v1" "Secret" .Release.Namespace (include
         "BusDataRecorderDocker.fullname" . | printf "%s-rabbitmq")) }}
-
-        apiVersion: v1
-
-        kind: Secret
-
-        metadata:
-          name: {{ include "BusDataRecorderDocker.fullname" . }}-rabbitmq
-          labels:
-            app.kubernetes.io/name: hola
-        type: Opaque
-
-        data:
-          RMQ_DEFAULT_USER: hola
-          RMQ_DEFAULT_PASS: hola
-        {{- end }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "BusDataRecorderDocker.fullname" . }}-rabbitmq
+    labels:
+      app.kubernetes.io/name: hola
+type: Opaque
+data:
+   RMQ_DEFAULT_USER: hola
+   RMQ_DEFAULT_PASS: hola
+{{- end }}
 
