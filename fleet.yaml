@@ -1,16 +1,15 @@
-namespace: fleet-mc-helm-external-example
-{{- if not (lookup "v1" "Secret" .Release.Namespace (include
-  "BusDataRecorderDocker.fullname" . | printf "%s-rabbitmq")) }}
-{{- end }}
+{{- if not (lookup "v1" "Secret" .Release.Namespace (include "BusDataRecorderDocker.fullname" . | printf "%s-rabbitmq")) }}
 apiVersion: v1
 kind: Secret
 metadata:
   name: {{ include "BusDataRecorderDocker.fullname" . }}-rabbitmq
-    labels:
-      app.kubernetes.io/name: hola
+  labels:
+    app.kubernetes.io/name: {{ include "BusDataRecorderDocker.fullname" . | quote }}
 type: Opaque
 data:
-   RMQ_DEFAULT_USER: hola
-   RMQ_DEFAULT_PASS: hola
-
-
+  # The raw values must be retrieved from .Values and encoded using b64enc
+  # Note: The original values 'hola' are used here for demonstration, 
+  # but they should typically come from .Values.
+  RMQ_DEFAULT_USER: {{ "hola" | b64enc | quote }}
+  RMQ_DEFAULT_PASS: {{ "hola" | b64enc | quote }}
+{{- end }}
